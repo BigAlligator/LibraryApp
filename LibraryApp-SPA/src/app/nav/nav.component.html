@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark  bg-primary">
   <div class="container">
-      <a class="navbar-brand" href="#">Thư viện mở</a>
+      <a class="navbar-brand" [routerLink]="['/home']" >Thư viện mở</a>
   
 
 
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Browse</a>
+        <li class="nav-item " routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/browse']" >Browse</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My book</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/my_book']" >My book</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Message</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link " [routerLink]="['/message']"  >Message</a>
         </li>
       </ul>
     
