@@ -1,0 +1,29 @@
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'> 
+ </head>
+
+<div class="maincontainer mb-4">
+  <div class="thecard">
+    <div class="thefront">
+        <img width="150" height="250" class="card-img-top" src="{{book.photoURL}}" alt="{{book.bookName}}">
+    </div>
+    <div class="theback">
+        <div  class="card ">
+            <div class="card-img-wrapper">
+                <p class="card-title text-center mb-1" style="font-family: 'Courier New'; font-size: 0.32cm"><i class="fa fa-book"></i>
+                  {{book.introHilight}}
+                </p>
+            </div>
+            <hr>
+            <div class="card-body p-1">             
+              <ul class="list-inline member-icons animate text-center mt-1">
+                  <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></li>
+                  <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-play-circle"></i></button></li>
+                  <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-bar-chart"></i></button></li>
+              </ul>
+            </div>         
+          </div>
+    </div>
+  </div>
+
+</div>

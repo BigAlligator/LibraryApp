@@ -12,11 +12,14 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { Book_listComponent } from './book_list/book_list.component';
+import { Book_listComponent } from './books/book_list/book_list.component';
 import { Borrow_listComponent } from './borrow_list/borrow_list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { BookService } from './_services/book.service';
+import { BookCardComponent } from './books/book-card/book-card.component';
+
 
 
 
@@ -28,7 +31,8 @@ import { AuthGuard } from './_guards/auth.guard';
       RegisterComponent,
       Book_listComponent,
       Borrow_listComponent,
-      MessagesComponent
+      MessagesComponent,
+      BookCardComponent
    ],
    imports: [
       BrowserModule,
@@ -41,7 +45,8 @@ import { AuthGuard } from './_guards/auth.guard';
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      BookService
    ],
    bootstrap: [
       AppComponent

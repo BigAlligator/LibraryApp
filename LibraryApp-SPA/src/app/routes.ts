@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { Book_listComponent } from './book_list/book_list.component';
+import { Book_listComponent } from './books/book_list/book_list.component';
 import { Borrow_listComponent } from './borrow_list/borrow_list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';

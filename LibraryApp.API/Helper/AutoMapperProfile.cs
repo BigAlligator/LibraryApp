@@ -24,6 +24,7 @@ namespace LibraryApp.API.Helper
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
             CreateMap<Photo, PhotosForDetailDto>();
+            CreateMap<Book, BooksForListDto>();
         }
     }
 }
