@@ -5,6 +5,7 @@ namespace LibraryApp.API.Dtos
 {
     public class BooksForListDto
     {
+        public int Id   { get; set; }
         public int Isbn { get; set; }
         public string BookName { get; set; }
         public string MainGenre { get; set; }
@@ -14,6 +15,7 @@ namespace LibraryApp.API.Dtos
         public string IntroDetail { get; set; }
         public bool IsEbook { get; set; }
         public string PhotoURL {get; set;}
+        public int AuthorId { get; set; }
 
     }
 }

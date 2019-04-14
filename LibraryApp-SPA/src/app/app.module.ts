@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,9 +20,15 @@ import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { BookService } from './_services/book.service';
 import { BookCardComponent } from './books/book-card/book-card.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { BookDetailResolver } from './_resolvers/book-detail.resolver';
+import { BookListResolver } from './_resolvers/book-list.resolver';
 
 
 
+export function tokenGetter(){
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -32,21 +39,32 @@ import { BookCardComponent } from './books/book-card/book-card.component';
       Book_listComponent,
       Borrow_listComponent,
       MessagesComponent,
-      BookCardComponent
+      BookCardComponent,
+      BookDetailComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      TabsModule.forRoot(), 
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      BookService
+      BookService,
+      BookDetailResolver,
+      BookListResolver
    ],
    bootstrap: [
       AppComponent

@@ -1,4 +1,5 @@
 export interface Book {
+    id: number;
     isbn: number;
     bookName: string;
     mainGenre: string;
@@ -8,4 +9,5 @@ export interface Book {
     introDetail?: string;
     isEbook: boolean;
     photoURL: string;
+    authorId: number;   
 }
