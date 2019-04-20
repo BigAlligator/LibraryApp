@@ -7,8 +7,9 @@ namespace LibraryApp.API.Helper
 {
     public class AutoMapperProfile : Profile
     {
+        
         public AutoMapperProfile()
-        {
+        {   
             CreateMap<User, UserForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
@@ -25,6 +26,9 @@ namespace LibraryApp.API.Helper
                 });
             CreateMap<Photo, PhotosForDetailDto>();
             CreateMap<Book, BooksForListDto>();
+            CreateMap<UserForRegisterDto, User>();
+            
+        
         }
     }
 }

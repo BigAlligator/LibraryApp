@@ -16,6 +16,7 @@ namespace LibraryApp.API.Dtos
         public bool IsEbook { get; set; }
         public string PhotoURL {get; set;}
         public int AuthorId { get; set; }
+        public string AuthorName {get; set;}
 
     }
 }

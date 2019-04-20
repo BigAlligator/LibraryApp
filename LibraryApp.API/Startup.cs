@@ -28,6 +28,7 @@ namespace LibraryApp.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -82,7 +83,7 @@ namespace LibraryApp.API
                     });
                 });
             }
-
+            
             //app.UseHttpsRedirection();
             //seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LibraryApp.API.Data;
 using LibraryApp.API.Dtos;
+using LibraryApp.API.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,10 +24,12 @@ namespace LibraryApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBooks()
+        public async Task<IActionResult> GetBooks([FromQuery]BookParams bookParams)
         {
-            var books = await _repo.GetBooks();
+            var books = await _repo.GetBooks(bookParams);
             var booksToReturn = _mapper.Map<IEnumerable<BooksForListDto>>(books);
+
+            Response.AddPagination(books.CurrentPage, books.PageSize, books.TotalCount, books.TotalPages);
             return Ok(booksToReturn);
         }
 

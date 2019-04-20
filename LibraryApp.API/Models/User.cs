@@ -18,5 +18,7 @@ namespace LibraryApp.API.Models
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
+
+        
     }
 }

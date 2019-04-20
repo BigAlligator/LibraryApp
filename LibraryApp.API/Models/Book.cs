@@ -15,7 +15,6 @@ namespace LibraryApp.API.Models
         public bool IsEbook { get; set; }
         public string PhotoURL {get; set;}
         public Author Author { get; set; }
-        public int AuthorId { get; set; }
-        
+        public int AuthorId { get; set; }        
     }
 }

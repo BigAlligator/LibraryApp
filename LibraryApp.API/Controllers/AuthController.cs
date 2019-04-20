@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using LibraryApp.API.Data;
 using LibraryApp.API.Dtos;
 using LibraryApp.API.Models;
@@ -18,29 +19,29 @@ namespace LibraryApp.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userToCreateDto)
         {
+           
             userToCreateDto.UserName = userToCreateDto.UserName.ToLower();
             if(await _repo.UserExists(userToCreateDto.UserName))
             {
                 return BadRequest("Username already exists!");
             }
-            var userToCreate = new User
-            {
-                UserName = userToCreateDto.UserName
+            var userToCreate = _mapper.Map<User>(userToCreateDto);
 
-            };
             var createdUser = _repo.Register(userToCreate, userToCreateDto.Password);
-
-            return StatusCode(201);
+            //var userToReturn = _mapper.Map<UserForDetailDto>(createdUser);
+            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, createdUser);
         }
 
         [HttpPost("Login")]

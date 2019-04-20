@@ -8,11 +8,14 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class BookListResolver implements Resolve<Book[]>{
+    pageNumber = 1;
+    pageSize = 2;
+
     constructor(private bookService: BookService, private router: Router, private alertify: AlertifyService){
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Book[]>{
-        return this.bookService.getBooks().pipe(
+        return this.bookService.getBooks(this.pageNumber, this.pageSize).pipe(
             catchError(error =>{
                 this.alertify.error('Problem retrieving data');
                 this.router.navigate(['/home']);

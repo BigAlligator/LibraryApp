@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LibraryApp.API.Helper;
 using LibraryApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,10 +30,10 @@ namespace LibraryApp.API.Data
             return book;
         }
 
-        public async Task<IEnumerable<Book>> GetBooks()
+        public async Task<PagedList<Book>> GetBooks(BookParams bookParams)
         {
-            var books = await _context.Books.ToListAsync();
-            return books;
+            var books =  _context.Books;
+            return await PagedList<Book>.CreateAsync(books, bookParams.PageNumber, bookParams.PageSize);
         }
 
         public async Task<bool> SaveAll()
