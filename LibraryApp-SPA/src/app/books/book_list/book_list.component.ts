@@ -14,6 +14,10 @@ import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 })
 export class Book_listComponent implements OnInit {
   books: Book[];
+  genreList = [{value: 'ALL'},{value: 'Action'},{value: 'Adventure'},{value: 'Art'},{value: 'Biography'},
+  {value: 'Children'},{value: 'Diary'},{value: 'Drama'},{value: 'Memoir'},{value: 'Poetry'},
+  {value: 'Textbook'},{value: 'Travel'},{value: 'Science fiction'},{value: 'Romance'},{value: 'Fiction'}];
+  bookParams: any = {};
   pagination: Pagination;
   constructor(private bookService: BookService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
@@ -22,6 +26,9 @@ export class Book_listComponent implements OnInit {
       this.books = data['books'].result;
       this.pagination = data['books'].pagination;
     });
+    this.bookParams.mainGenre = 'ALL';
+    this.bookParams.bookName = 'ALL';
+    this.bookParams.orderBy = 'publishedDate';
   }
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
@@ -30,8 +37,14 @@ export class Book_listComponent implements OnInit {
     this.loadBooks();
   }
 
+  resetFilters(){
+    this.bookParams.mainGenre = 'ALL';
+    this.bookParams.bookName = 'ALL';
+    this.loadBooks();
+  }
+
   loadBooks() {
-   this.bookService.getBooks(this.pagination.currentPage, this.pagination.itemsPerPage)
+   this.bookService.getBooks(this.pagination.currentPage, this.pagination.itemsPerPage, this.bookParams)
     .subscribe((res: PaginatedResult<Book[]>) => {
      this.books = res.result;
      this.pagination = res.pagination;

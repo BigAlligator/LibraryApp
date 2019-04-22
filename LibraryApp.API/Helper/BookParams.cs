@@ -12,7 +12,13 @@ namespace LibraryApp.API.Helper
          { 
              get{return pageSize;}
              set{pageSize = (value > MaxPageSize) ? MaxPageSize : value ;}
-          }
+         }
+
+         public string MainGenre { get; set; }
+
+         public string BookName { get; set; }
+
+         public string OrderBy { get; set; }
 
 
     }

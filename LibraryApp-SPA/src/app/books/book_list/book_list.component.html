@@ -1,4 +1,37 @@
- <div class="container mt-5">
+
+<div class="text-center mt-3">
+  <h4>Total books found: {{pagination.totalItems}}</h4>
+</div>
+ 
+
+ <div class="container mt-3">
+    <form class="form-inline" #form="ngForm" (ngSubmit)="loadBooks()" novalidate>
+        <div class="form-group">
+          <label for="minAge">Book name:</label>
+          <input type="text" placeholder="Search for book name" class="form-control ml-1" style="width: 200px" id="bookName" 
+          [(ngModel)]="bookParams.bookName" name="bookName">
+        </div>
+            
+        <div class="form-group px-2">
+          <label for="gender">Show genre: </label>
+          <select class="form-control ml-1" style="width: 130px" 
+          [(ngModel)]="bookParams.mainGenre" id="mainGenre" name="mainGenre">
+            <option *ngFor="let genre of genreList" [value]="genre.value">
+              {{genre.value}}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="resetFilters()" style="margin-left:10px">Reset Filter</button>
+        
+        <div class="col">
+          <div class="btn-group float-right">
+            <button type="button" name="orderBy" [(ngModel)]="bookParams.orderBy" (click)="loadBooks()" btnRadio="publishedDate" class="btn btn-primary">Newest published book</button>
+            <button type="button" name="orderBy" [(ngModel)]="bookParams.orderBy" (click)="loadBooks()" btnRadio="A-Z">A-Z</button>
+          </div>
+        </div>
+      </form>
+      <br>
  <div class="row">
     <div *ngFor="let book of books" class="col-lg-2 col-md-3 col-sm-6">
       <app-book-card [book]="book"></app-book-card>

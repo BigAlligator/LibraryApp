@@ -26,6 +26,15 @@ namespace LibraryApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooks([FromQuery]BookParams bookParams)
         {
+            if(string.IsNullOrEmpty(bookParams.MainGenre))
+            {
+                bookParams.MainGenre = "ALL";
+            }
+            if(string.IsNullOrEmpty(bookParams.BookName))
+            {
+                bookParams.BookName = "ALL";
+            }
+
             var books = await _repo.GetBooks(bookParams);
             var booksToReturn = _mapper.Map<IEnumerable<BooksForListDto>>(books);
 
