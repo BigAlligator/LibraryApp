@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-4">
       <div class="card">
         <img  class="card-img-top img-thumbnail" src="{{book.photoURL}}" alt="{{book.bookName}}">
         <div class="card-body">
@@ -29,24 +29,24 @@
           </div>
         </div>
         <div class="card-footer">
-          <button class="btn btn-primary">
+          <button class="btn btn-primary" (click)="borrow(book.id)">
             Borrow
           </button>
         </div>
       </div>
     </div>
-    <div class="col-sm-8">
+    <div class="col-md-8">
       <div class="tab-panel">
         <tabset class="member-tabset">
           <tab heading="About the book">
-            <h4 class="mt-4">Introduction: </h4>
+            <h4 class="mt-1">Introduction: </h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur dolor non diam faucibus, sed consequat diam mattis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dignissim ante ante, imperdiet porttitor leo ornare ac. Morbi sit amet lacus interdum velit pellentesque egestas vitae ut massa. Duis aliquet tellus elit, in hendrerit sapien fermentum nec. Integer tincidunt mauris ante, sit amet laoreet nisl fermentum ut. Pellentesque egestas consectetur consectetur. Pellentesque nec odio nisl. Suspendisse dictum tincidunt nisi in mattis. Sed in ante eget neque ornare laoreet. Donec aliquet scelerisque ante, in volutpat libero efficitur ac. Ut non leo nec sapien finibus tincidunt. Donec a velit turpis. Nulla convallis tincidunt massa, at gravida erat venenatis id.
                 Duis consequat, urna at cursus pellentesque, libero purus lacinia tellus, volutpat facilisis nunc ipsum convallis dui. Fusce eu rhoncus est. Integer molestie at arcu pharetra suscipit. Fusce tristique purus convallis tristique blandit. Morbi posuere nisi mi, sed ultrices velit ullamcorper pulvinar. In hac habitasse platea dictumst. Morbi venenatis turpis et faucibus commodo. In sollicitudin pellentesque tellus id ornare.               
                 Donec molestie, magna at aliquam ultricies, neque ex vulputate nulla, non pellentesque urna turpis et odio. Proin ac nibh consequat, bibendum dolor egestas, vehicula diam. Fusce nisl magna, mollis congue nulla a, gravida ultrices nunc. Pellentesque ut sem sed arcu consectetur laoreet nec sit amet lectus. Praesent elementum elit quis lectus scelerisque venenatis. Maecenas faucibus viverra cursus. Nullam dictum luctus nulla eu ultricies. Sed a est eleifend, rutrum ante eget, consequat tellus.
             </p>
           </tab>
             <tab heading="Background and publication">
-              <h4 class="mt-4">Introduction: </h4>
+              <h4 class="mt-1">Introduction: </h4>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur dolor non diam faucibus, sed consequat diam mattis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dignissim ante ante, imperdiet porttitor leo ornare ac. Morbi sit amet lacus interdum velit pellentesque egestas vitae ut massa. Duis aliquet tellus elit, in hendrerit sapien fermentum nec. Integer tincidunt mauris ante, sit amet laoreet nisl fermentum ut. Pellentesque egestas consectetur consectetur. Pellentesque nec odio nisl. Suspendisse dictum tincidunt nisi in mattis. Sed in ante eget neque ornare laoreet. Donec aliquet scelerisque ante, in volutpat libero efficitur ac. Ut non leo nec sapien finibus tincidunt. Donec a velit turpis. Nulla convallis tincidunt massa, at gravida erat venenatis id.
                   Duis consequat, urna at cursus pellentesque, libero purus lacinia tellus, volutpat facilisis nunc ipsum convallis dui. Fusce eu rhoncus est. Integer molestie at arcu pharetra suscipit. Fusce tristique purus convallis tristique blandit. Morbi posuere nisi mi, sed ultrices velit ullamcorper pulvinar. In hac habitasse platea dictumst. Morbi venenatis turpis et faucibus commodo. In sollicitudin pellentesque tellus id ornare.               
                   Donec molestie, magna at aliquam ultricies, neque ex vulputate nulla, non pellentesque urna turpis et odio. Proin ac nibh consequat, bibendum dolor egestas, vehicula diam. Fusce nisl magna, mollis congue nulla a, gravida ultrices nunc. Pellentesque ut sem sed arcu consectetur laoreet nec sit amet lectus. Praesent elementum elit quis lectus scelerisque venenatis. Maecenas faucibus viverra cursus. Nullam dictum luctus nulla eu ultricies. Sed a est eleifend, rutrum ante eget, consequat tellus.

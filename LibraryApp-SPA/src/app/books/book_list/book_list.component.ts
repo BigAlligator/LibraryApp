@@ -15,7 +15,7 @@ import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 export class Book_listComponent implements OnInit {
   books: Book[];
   genreList = [{value: 'ALL'},{value: 'Action'},{value: 'Adventure'},{value: 'Art'},{value: 'Biography'},
-  {value: 'Children'},{value: 'Diary'},{value: 'Drama'},{value: 'Memoir'},{value: 'Poetry'},
+  {value: 'Children'},{value: 'Diary'},{value: 'Drama'},{value: 'Memoir'},{value: 'Novel'},{value: 'Poetry'},
   {value: 'Textbook'},{value: 'Travel'},{value: 'Science fiction'},{value: 'Romance'},{value: 'Fiction'}];
   bookParams: any = {};
   pagination: Pagination;

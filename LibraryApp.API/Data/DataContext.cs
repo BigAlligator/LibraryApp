@@ -24,6 +24,17 @@ namespace LibraryApp.API.Data
 
         public DbSet<BookLoan> BookLoans { get; set; }
 
+        public DbSet<Borrow> Borrows { get; set; }
+
+        protected  override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Borrow>().HasKey(b => new {b.BorrowerId, b.BookId, b.LoanDate});
+            builder.Entity<Borrow>().HasOne(b => b.Borrower).WithMany(b => b.Books).HasForeignKey(b => b.BorrowerId).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Borrow>().HasOne(b => b.Book).WithMany(b => b.Borrowers).HasForeignKey(b => b.BookId).OnDelete(DeleteBehavior.Restrict);
+
+
+        }
+
 
     }
 }

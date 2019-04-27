@@ -23,6 +23,7 @@ import { BookCardComponent } from './books/book-card/book-card.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookDetailResolver } from './_resolvers/book-detail.resolver';
 import { BookListResolver } from './_resolvers/book-list.resolver';
+import { BorrowListResolver } from './_resolvers/borrow-list.resolver';
 
 
 
@@ -68,7 +69,8 @@ export function tokenGetter(){
       AuthGuard,
       BookService,
       BookDetailResolver,
-      BookListResolver
+      BookListResolver,
+      BorrowListResolver
    ],
    bootstrap: [
       AppComponent

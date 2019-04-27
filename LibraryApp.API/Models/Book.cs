@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace LibraryApp.API.Models
 {
@@ -15,6 +16,7 @@ namespace LibraryApp.API.Models
         public bool IsEbook { get; set; }
         public string PhotoURL {get; set;}
         public Author Author { get; set; }
-        public int AuthorId { get; set; }        
+        public int AuthorId { get; set; }     
+        public ICollection<Borrow> Borrowers { get; set; }   
     }
 }

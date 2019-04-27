@@ -16,5 +16,9 @@ namespace LibraryApp.API.Data
          Task<PagedList<Book>> GetBooks(BookParams bookParams);
 
          Task<Book> GetBook(int id);
+
+         Task<Borrow> GetBorrow(int userId, int bookId);
+
+         Task<int> CountBorrow(int userId);
     }
 }

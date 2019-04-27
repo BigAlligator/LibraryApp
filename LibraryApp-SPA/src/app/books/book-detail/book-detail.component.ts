@@ -3,6 +3,7 @@ import { Book } from 'src/app/_models/book';
 import { BookService } from 'src/app/_services/book.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -13,11 +14,19 @@ export class BookDetailComponent implements OnInit {
   book: Book;
 
   constructor(private bookService: BookService, private alertify: AlertifyService
-    , private route: ActivatedRoute) { }
+    , private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.book = data['book'];
+    });
+  }
+
+  borrow(id: number){
+    this.bookService.borrowBook(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.success(this.book.bookName + ' Added to your loan list');
+    }, error => {
+      this.alertify.error(error);
     });
   }
 

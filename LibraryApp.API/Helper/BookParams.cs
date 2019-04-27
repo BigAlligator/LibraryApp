@@ -6,7 +6,7 @@ namespace LibraryApp.API.Helper
 
         public int PageNumber { get; set; } = 1;
 
-        private int pageSize = 2;
+        private int pageSize = 12;
 
         public int PageSize
          { 
@@ -14,11 +14,15 @@ namespace LibraryApp.API.Helper
              set{pageSize = (value > MaxPageSize) ? MaxPageSize : value ;}
          }
 
+         public int UserId { get; set; }
+
          public string MainGenre { get; set; }
 
          public string BookName { get; set; }
 
          public string OrderBy { get; set; }
+
+         public bool Loanbook { get; set; } = false;
 
 
     }

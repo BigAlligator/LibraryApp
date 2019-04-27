@@ -17,7 +17,7 @@ baseUrl = environment.apiurl;
 
 constructor(private http: HttpClient) { }
 
-getBooks(page?, itemPerPage?, bookParams?): Observable<PaginatedResult<Book[]>>{
+getBooks(page?, itemPerPage?, bookParams?, borrowParams?): Observable<PaginatedResult<Book[]>>{
   const paginatedResult : PaginatedResult<Book[]> = new PaginatedResult<Book[]>();
   let params = new HttpParams();
 
@@ -30,6 +30,11 @@ getBooks(page?, itemPerPage?, bookParams?): Observable<PaginatedResult<Book[]>>{
     params = params.append('mainGenre', bookParams.mainGenre);
     params = params.append('bookName', bookParams.bookName);
     params = params.append('orderBy', bookParams.orderBy);
+  }
+
+  if(borrowParams === 'loan')
+  {
+    params = params.append('loanbook', 'true');
   }
 
   return this.http.get<Book[]>(this.baseUrl + 'book', {observe: 'response', params})
@@ -46,6 +51,10 @@ getBooks(page?, itemPerPage?, bookParams?): Observable<PaginatedResult<Book[]>>{
 
 getBook(id): Observable<Book>{
   return this.http.get<Book>(this.baseUrl + 'book/' + id);
+}
+
+borrowBook(id: number, bookId: number){
+  return this.http.post(this.baseUrl + 'book/'+ id + '/borrow/' + bookId, {});
 }
 
 }

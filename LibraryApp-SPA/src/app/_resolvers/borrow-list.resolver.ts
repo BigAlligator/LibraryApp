@@ -7,15 +7,16 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class BookListResolver implements Resolve<Book[]>{
+export class BorrowListResolver implements Resolve<Book[]>{
     pageNumber = 1;
     pageSize = 12;
+    borrowParams = 'loan';
 
     constructor(private bookService: BookService, private router: Router, private alertify: AlertifyService){
 
     }
     resolve(route: ActivatedRouteSnapshot): Observable<Book[]>{
-        return this.bookService.getBooks(this.pageNumber, this.pageSize).pipe(
+        return this.bookService.getBooks(this.pageNumber, this.pageSize, null, this.borrowParams).pipe(
             catchError(error =>{
                 this.alertify.error('Problem retrieving data');
                 this.router.navigate(['/home']);
