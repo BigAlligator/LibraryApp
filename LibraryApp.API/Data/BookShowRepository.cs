@@ -129,7 +129,7 @@ namespace LibraryApp.API.Data
         {
             var user = await _context.Users.Include(x=> x.Books).FirstOrDefaultAsync(u => u.Id == id);
 
-            return user.Books.Where(u => u.BorrowerId== id).Select(i => i.BookId);
+            return user.Books.Where(u => u.BorrowerId== id && u.ReturnDate == DateTime.MinValue).Select(i => i.BookId);
 
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -85,6 +86,48 @@ namespace LibraryApp.API.Controllers
             
             return BadRequest("Failed to borrow this book");
 
+        }
+
+        [HttpPut("{id}/return/{bookId}")]
+        public async Task<IActionResult> ReturnBook(int id, int bookId)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            var borrow = await _repo.GetBorrow(id, bookId);
+            
+            borrow.ReturnDate = DateTime.Now;
+            if(await _repo.SaveAll())
+                return Ok();
+            
+            return BadRequest("Failed to return this book");
+
+        }
+
+        [HttpGet("content/{bookId}")]
+        public async Task<IActionResult> GetBookContent(int bookId)
+        {
+            var book = await _repo.GetBook(bookId);
+
+            string bookName = book.BookName;
+
+            string filedirection = @"D:\BookContent\%bookname%".Replace("%bookname%", bookName);
+
+            if(!Directory.Exists(filedirection))
+            {
+                return BadRequest("Failed to load book content");
+            }
+
+            string[] files = Directory.GetFiles(filedirection, "Page*.txt");
+
+            List<string> bookContent = new List<string>();
+
+            foreach (string file in files)
+            {
+                string [] fileContent = System.IO.File.ReadAllLines(file);
+                bookContent.AddRange(fileContent);    
+            }
+
+            return Ok(bookContent);        
         }
     }
 }

@@ -13,6 +13,7 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class Borrow_listComponent implements OnInit {
   books: Book[];
+  book: Book;
   pagination: Pagination;
   borrowParam: string;
 
@@ -42,6 +43,15 @@ export class Borrow_listComponent implements OnInit {
     console.log(this.pagination.currentPage);
     console.log(this.pagination.itemsPerPage);
     this.loadBooks();
+  }
+
+  return(id: number){
+    this.bookService.returnBook(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.success('You have returned successful');
+    }, error => {
+      this.alertify.error(error);
+    });
+    location.reload();
   }
 
 }

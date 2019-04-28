@@ -57,4 +57,8 @@ borrowBook(id: number, bookId: number){
   return this.http.post(this.baseUrl + 'book/'+ id + '/borrow/' + bookId, {});
 }
 
+returnBook(id: number, bookId: number){
+  return this.http.put(this.baseUrl + 'book/'+ id + '/return/' + bookId, {} );
+}
+
 }
