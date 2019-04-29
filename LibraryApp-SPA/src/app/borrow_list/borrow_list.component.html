@@ -16,7 +16,8 @@
 <div class="row">
   <div *ngFor="let b of books" class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
     <app-book-card [book]="b"></app-book-card>
-    <button class="btn btn-primary" style="width: 75px">Read </button>
+    <button class="btn btn-primary" [routerLink]="['/browse/book/content/', 
+    b.id]" style="width: 75px">Read </button>
     <button class="btn btn-outline-secondary" (click)="return(b.id)" style="width: 80px; margin-left: 5px">Return </button>
   </div>
 </div>

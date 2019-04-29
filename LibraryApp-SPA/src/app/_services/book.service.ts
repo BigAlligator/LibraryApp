@@ -61,4 +61,8 @@ returnBook(id: number, bookId: number){
   return this.http.put(this.baseUrl + 'book/'+ id + '/return/' + bookId, {} );
 }
 
+contentBook(id: number, bookId: number): Observable<any> {
+  return this.http.get<any>(this.baseUrl + 'book/' + id + '/content/' + bookId);
+}
+
 }

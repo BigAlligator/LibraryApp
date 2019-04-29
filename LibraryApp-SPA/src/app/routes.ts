@@ -8,6 +8,8 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookDetailResolver } from './_resolvers/book-detail.resolver';
 import { BookListResolver } from './_resolvers/book-list.resolver';
 import { BorrowListResolver } from './_resolvers/borrow-list.resolver';
+import { Book_contentComponent } from './books/book_content/book_content.component';
+import { BookContentResolver } from './_resolvers/book-content.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -17,7 +19,8 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'browse', component: Book_listComponent, resolve: {books: BookListResolver}},
-            {path: 'browse/book/:id', component: BookDetailComponent, resolve: {book: BookDetailResolver}},           
+            {path: 'browse/book/:id', component: BookDetailComponent, resolve: {book: BookDetailResolver}},
+            {path: 'browse/book/content/:bookId', component: Book_contentComponent, resolve: {book: BookContentResolver}},           
             {path: 'my_book', component: Borrow_listComponent, resolve: {books: BorrowListResolver}},
             {path: 'message', component: MessagesComponent},
         ]

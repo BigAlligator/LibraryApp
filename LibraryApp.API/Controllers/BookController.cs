@@ -103,9 +103,23 @@ namespace LibraryApp.API.Controllers
 
         }
 
-        [HttpGet("content/{bookId}")]
-        public async Task<IActionResult> GetBookContent(int bookId)
+        [HttpGet("{id}/content/{bookId}")]
+        public async Task<IActionResult> GetBookContent(int id, int bookId)
         {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var borrow = await _repo.GetBorrow(id, bookId);
+
+            if((DateTime.Now - borrow.LoanDate).TotalDays > 14)
+            {
+                return BadRequest("Request refused, your loan time is ended");
+            }
+
+            if(borrow.ReturnDate != DateTime.MinValue)
+            {
+                return BadRequest("You have returned this book");
+            }
             var book = await _repo.GetBook(bookId);
 
             string bookName = book.BookName;
@@ -126,6 +140,7 @@ namespace LibraryApp.API.Controllers
                 string [] fileContent = System.IO.File.ReadAllLines(file);
                 bookContent.AddRange(fileContent);    
             }
+            bookContent.Reverse();
 
             return Ok(bookContent);        
         }

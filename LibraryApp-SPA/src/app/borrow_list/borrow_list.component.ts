@@ -3,7 +3,7 @@ import { Book } from '../_models/book';
 import { Pagination, PaginatedResult } from '../_models/pagination';
 import { AuthService } from '../_services/auth.service';
 import { BookService } from '../_services/book.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
@@ -16,17 +16,26 @@ export class Borrow_listComponent implements OnInit {
   book: Book;
   pagination: Pagination;
   borrowParam: string;
+  userId: number;
+  id: number;
 
   constructor(private authService: AuthService, private bookService: BookService,
-     private route: ActivatedRoute, private alertify: AlertifyService) { }
+     private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) {
+      this.userId = this.authService.decodedToken.nameid;
+      this.id = this.userId;
+      }
 
   ngOnInit() {
+    
     this.route.data.subscribe(data => {
       this.books = data['books'].result;
       this.pagination = data['books'].pagination;
     });
     this.borrowParam = 'loan';
+    console.log(this.userId);
   }
+  
+
 
   loadBooks() {
     this.bookService.getBooks(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.borrowParam)
@@ -53,5 +62,6 @@ export class Borrow_listComponent implements OnInit {
     });
     location.reload();
   }
+
 
 }

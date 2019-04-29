@@ -24,6 +24,8 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookDetailResolver } from './_resolvers/book-detail.resolver';
 import { BookListResolver } from './_resolvers/book-list.resolver';
 import { BorrowListResolver } from './_resolvers/borrow-list.resolver';
+import { Book_contentComponent } from './books/book_content/book_content.component';
+import { BookContentResolver } from './_resolvers/book-content.resolver';
 
 
 
@@ -41,7 +43,8 @@ export function tokenGetter(){
       Borrow_listComponent,
       MessagesComponent,
       BookCardComponent,
-      BookDetailComponent
+      BookDetailComponent,
+      Book_contentComponent
    ],
    imports: [
       BrowserModule,
@@ -70,7 +73,8 @@ export function tokenGetter(){
       BookService,
       BookDetailResolver,
       BookListResolver,
-      BorrowListResolver
+      BorrowListResolver,
+      BookContentResolver
    ],
    bootstrap: [
       AppComponent

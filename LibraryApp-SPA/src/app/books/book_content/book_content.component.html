@@ -1,0 +1,45 @@
+
+ <!--<div class="container mt-5">
+ <div class="row">
+    <div *ngFor="let book of books" class="col-lg-2 col-md-3 col-sm-6">
+      <app-book-card [book]="book"></app-book-card>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-lg-2 col-md-3 col-sm-6">
+      <div id="book">
+        <canvas id="pageflip-canvas"></canvas>
+        <div *ngFor="let book of books"  id="pages">
+          <section>
+            <div>
+              {{book.bookName}}
+            </div>
+          </section>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div class="book-section">
+   <div class="container">
+      <div class="right">
+           <figure class="back" id="back-cover"></figure>
+           <figure class="front" style="background-image: url('http://artisticdesigning.com/Drawings/Photoshopped/sunset_landscape.jpg');">The End</figure>
+       </div>
+       <div *ngFor="let c of content; let i = index"  class="right">
+        <figure  class="front" style="background-image: url('http://artisticdesigning.com/Drawings/Photoshopped/sunset_landscape.jpg');">
+            {{c}}
+        </figure>        
+       </div>
+       <div class="right">
+           <figure class="back" id="back-cover"></figure>
+           <figure class="front" id="cover">
+               <p style="font-family: 'Stalemate', cursive; font-size: 0.5cm; margin-top: 5px">Book content illustrated by OpenLibrary</p>
+               <p style="font-family: 'Stalemate', cursive; font-size: 0.3cm">© 2019 OpenLibrary All Rights Reserved</p>
+           </figure>
+       </div>
+   </div>
+   <button (click)="onClickLeft()">Prev</button> <button (click)="onClickRight()">Next</button>
+   <br/>
+</div>
