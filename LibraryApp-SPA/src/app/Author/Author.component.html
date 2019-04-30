@@ -1,0 +1,36 @@
+  
+  <div class="container mt-3">
+    <form class="form-inline" #form="ngForm" (ngSubmit)="loadAuthors()" novalidate>
+        <div class="form-group">
+          <label for="minAge">Author name:</label>
+          <input type="text" placeholder="Search for book name" class="form-control ml-1" style="width: 200px" id="authorName" 
+          [(ngModel)]="bookParams.authorName" name="authorName">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="resetFilters()" style="margin-left:10px">Reset Filter</button>
+        
+        <div class="col">
+          <div class="btn-group float-right">
+            <button type="button" name="orderBy" [(ngModel)]="bookParams.orderBy" (click)="loadAuthors()" btnRadio="dateOfBirth" class="btn btn-primary">Date of birth</button>
+            <button type="button" name="orderBy" [(ngModel)]="bookParams.orderBy" (click)="loadAuthors()" btnRadio="A-Z">A-Z</button>
+          </div>
+        </div>
+      </form>
+      <br>
+  
+  <div class="row">
+    <div *ngFor="let a of authors" class="col-lg-3 col-md-3 col-sm-6">
+      <app-Author-card [author]="a"></app-Author-card>
+    </div>
+  </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" 
+                [itemsPerPage]="pagination.itemsPerPage"
+                [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+   
+    </pagination>
+  </div>

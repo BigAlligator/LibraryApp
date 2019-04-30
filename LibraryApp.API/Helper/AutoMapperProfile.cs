@@ -27,7 +27,7 @@ namespace LibraryApp.API.Helper
             CreateMap<Photo, PhotosForDetailDto>();
             CreateMap<Book, BooksForListDto>();
             CreateMap<UserForRegisterDto, User>();
-            
+            CreateMap<Author, AuthorsForListDto>();
         
         }
     }

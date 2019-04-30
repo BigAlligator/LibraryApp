@@ -19,6 +19,7 @@ export class Book_contentComponent implements OnInit {
 
   ngOnInit() {
     this.loadContent();
+    
   }
 
   // getContent(id: number)
@@ -37,6 +38,7 @@ export class Book_contentComponent implements OnInit {
   }, error => {
      this.alertify.error(error);
    })
+   
  }
 
  onClickRight() {

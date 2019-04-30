@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Book } from '../_models/book';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
+import { Author } from '../_models/author';
 
 
 
@@ -38,6 +39,32 @@ getBooks(page?, itemPerPage?, bookParams?, borrowParams?): Observable<PaginatedR
   }
 
   return this.http.get<Book[]>(this.baseUrl + 'book', {observe: 'response', params})
+  .pipe(
+    map(response => {
+      paginatedResult.result = response.body;
+      if(response.headers.get('Pagination') != null) {
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+      }
+      return paginatedResult;
+    })
+  );
+}
+
+getAuthors(page?, itemPerPage?, bookParams?): Observable<PaginatedResult<Author[]>>{
+  const paginatedResult : PaginatedResult<Author[]> = new PaginatedResult<Author[]>();
+  let params = new HttpParams();
+
+  if(page != null && itemPerPage != null){
+    params = params.append('pageNumber', page);
+    params = params.append('pageSize', itemPerPage);
+  }
+
+  if(bookParams != null){
+    params = params.append('authorName', bookParams.authorName);
+    params = params.append('orderBy', bookParams.orderBy);
+  }
+
+  return this.http.get<Author[]>(this.baseUrl + 'book/author', {observe: 'response', params})
   .pipe(
     map(response => {
       paginatedResult.result = response.body;

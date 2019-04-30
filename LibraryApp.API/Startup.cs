@@ -47,6 +47,7 @@ namespace LibraryApp.API
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IBookShowRepository, BookShowRepository>();
+            services.AddScoped<IAuthorShowRepository, AuthorShowRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

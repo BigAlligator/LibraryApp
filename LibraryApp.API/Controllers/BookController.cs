@@ -20,11 +20,13 @@ namespace LibraryApp.API.Controllers
     {
         private readonly IBookShowRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IAuthorShowRepository _author_Repo;
 
-        public BookController(IBookShowRepository repo, IMapper mapper)
+        public BookController(IBookShowRepository repo, IMapper mapper, IAuthorShowRepository author_repo)
         {
             _repo = repo;
             _mapper = mapper;
+            _author_Repo = author_repo;
         }
 
         [HttpGet]
@@ -56,6 +58,30 @@ namespace LibraryApp.API.Controllers
             var book = await _repo.GetBook(id);
             var bookToReturn =_mapper.Map<BooksForListDto>(book);
             return Ok(bookToReturn);
+        }
+
+        [HttpGet("author")]
+        public async Task<IActionResult> GetAuthors([FromQuery]AuthorParams authorParams)
+        {
+
+            if(string.IsNullOrEmpty(authorParams.AuthorName))
+            {
+                authorParams.AuthorName = "ALL";
+            }
+
+            var authors = await _author_Repo.GetAuthors(authorParams);
+            var authorsToReturn = _mapper.Map<IEnumerable<AuthorsForListDto>>(authors);
+
+            Response.AddPagination(authors.CurrentPage, authors.PageSize, authors.TotalCount, authors.TotalPages);
+            return Ok(authorsToReturn);
+        }
+
+        [HttpGet("author/{id}")]
+        public async Task<IActionResult> GetAuthor(int id)
+        {
+            var author = await _author_Repo.GetAuthor(id);
+            var authorToReturn =_mapper.Map<AuthorsForListDto>(author);
+            return Ok(authorToReturn);
         }
 
         [HttpPost("{id}/borrow/{bookId}")]
