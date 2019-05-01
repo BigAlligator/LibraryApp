@@ -80,6 +80,10 @@ getBook(id): Observable<Book>{
   return this.http.get<Book>(this.baseUrl + 'book/' + id);
 }
 
+getAuthor(id): Observable<Author>{
+  return this.http.get<Author>(this.baseUrl + 'book/author/' + id);
+}
+
 borrowBook(id: number, bookId: number){
   return this.http.post(this.baseUrl + 'book/'+ id + '/borrow/' + bookId, {});
 }

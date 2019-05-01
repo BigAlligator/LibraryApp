@@ -29,6 +29,8 @@ import { BookContentResolver } from './_resolvers/book-content.resolver';
 import { AuthorComponent } from './Author/Author.component';
 import { AuthorListResolver } from './_resolvers/author-list.resolver';
 import { AuthorCardComponent } from './Author-card/Author-card.component';
+import { AuthorDetailComponent } from './Author-detail/Author-detail.component';
+import { AuthorDetailResolver } from './_resolvers/auhtor-detail.resolver';
 
 
 
@@ -50,7 +52,8 @@ export function tokenGetter(){
       Book_contentComponent,
       AuthorComponent,
       AuthorCardComponent,
-      AuthorCardComponent
+      AuthorCardComponent,
+      AuthorDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -81,7 +84,8 @@ export function tokenGetter(){
       BookListResolver,
       BorrowListResolver,
       BookContentResolver,
-      AuthorListResolver
+      AuthorListResolver,
+      AuthorDetailResolver
    ],
    bootstrap: [
       AppComponent
