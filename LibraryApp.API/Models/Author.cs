@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryApp.API.Models
 {
     public class Author
     {
-        public int Id { get; set; }
+
+        public int Id { get; set; } 
         public string AuthorName { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }

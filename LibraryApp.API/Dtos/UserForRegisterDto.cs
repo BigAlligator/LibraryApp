@@ -6,6 +6,8 @@ namespace LibraryApp.API.Dtos
 {
     public class UserForRegisterDto
     {
+
+
         [Required]
         public string UserName { get; set; }
 

@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryApp.API.Models
 {
     public class User
     {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
