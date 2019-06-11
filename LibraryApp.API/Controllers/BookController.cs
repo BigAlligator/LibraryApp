@@ -10,6 +10,9 @@ using LibraryApp.API.Helper;
 using LibraryApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
+using System.Data;
+
 
 namespace LibraryApp.API.Controllers
 {
@@ -169,6 +172,44 @@ namespace LibraryApp.API.Controllers
             bookContent.Reverse();
 
             return Ok(bookContent);        
+        }
+
+
+        [HttpGet("{id}/getloaninfo/{bookId}")]
+        public  IEnumerable<BookLoanInfo> GetBookLoanInfo(int id, int bookId)
+        {
+                 
+            List<BookLoanInfo> loaninfo = new List<BookLoanInfo>();
+            
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("ViewBookLoanInfo", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BookId",bookId);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    BookLoanInfo info = new BookLoanInfo();
+                    info.BookName = reader["BookName"].ToString();
+                    info.BookSubId = Convert.ToInt32(reader["BookSubId"].ToString());
+                    if((bool)reader["LoanStatus"] == false)
+                    {
+                            info.LoanStatus = "Free to loan";
+                    }
+                    else info.LoanStatus = "Loaning";
+                    info.BookStatus = reader["BookStatus"].ToString() ;
+                    info.LoanDocRef = reader["LoanDocRef"].ToString();
+                    info.LoanDate = reader["LoanDate"].ToString();
+                    info.ExpectReturnDate = reader["ExpectReturnDate"].ToString();
+                    loaninfo.Add(info);
+                }
+
+            }
+
+            return loaninfo;
+                
         }
     }
 }

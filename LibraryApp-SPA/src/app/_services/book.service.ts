@@ -6,6 +6,7 @@ import { Book } from '../_models/book';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Author } from '../_models/author';
+import { LoanInfo } from '../_models/loaninfo';
 
 
 
@@ -94,6 +95,10 @@ returnBook(id: number, bookId: number){
 
 contentBook(id: number, bookId: number): Observable<any> {
   return this.http.get<any>(this.baseUrl + 'book/' + id + '/content/' + bookId);
+}
+
+getLoanInfo(id: number, bookId: number): Observable<any> {
+  return this.http.get<LoanInfo[]>(this.baseUrl + 'book/' + id + '/getloaninfo/' + bookId);
 }
 
 }

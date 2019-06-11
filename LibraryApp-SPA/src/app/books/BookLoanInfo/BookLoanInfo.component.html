@@ -1,0 +1,25 @@
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Book name</th>
+      <th scope="col">Book sub ID</th>
+      <th scope="col">Book status</th>
+      <th scope="col">Loan status</th>
+      <th scope="col">Loan date</th>
+      <th scope="col">Expect return date</th>
+      <th scope="col">Loan document reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let info of loaninfo">
+      <td>{{info.bookName}}</td>
+      <td>{{info.bookSubId}}</td>
+      <td>{{info.bookStatus}}</td>
+      <td>{{info.loanStatus}}</td>
+      <td>{{info.loanDate}}</td>
+      <td>{{info.expectReturnDate}}</td>
+      <td>{{info.loanDocRef}}</td>
+    </tr>
+  </tbody>
+</table>
