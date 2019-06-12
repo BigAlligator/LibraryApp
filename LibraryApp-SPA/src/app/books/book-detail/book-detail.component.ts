@@ -24,7 +24,7 @@ export class BookDetailComponent implements OnInit {
 
   borrow(id: number){
     this.bookService.borrowBook(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success(this.book.bookName + ' added to your loan list');
+      this.alertify.success(this.book.bookName + ' added to book list');
     }, error => {
       this.alertify.error(error);
     });

@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
+  userid: number;
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
+    this.userid = this.authService.decodedToken.nameid;
+    
   }
 
   login() {
-    this.authService.login(this.model).subscribe(next => {
+    this.authService.login(this.model).subscribe(next => {     
       this.alertify.success('Loged in successfully');
     }, error => {
       this.alertify.error(error);
@@ -26,7 +29,9 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
+    
     return this.authService.loggedIn();
+    
   }
 
   logout() {

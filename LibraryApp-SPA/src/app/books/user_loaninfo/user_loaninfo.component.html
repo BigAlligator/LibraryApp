@@ -1,0 +1,51 @@
+<table class="table  table-bordered mt-5 ">
+  <thead>
+    <tr>
+      <th scope="col">Loan number</th>
+      <th scope="col">Book ID</th>
+      <th scope="col">Sub ID</th>
+      <th scope="col">Book name</th>
+      <th scope="col">Book Status</th>
+      <th scope="col">Loan status</th>
+      <th scope="col">Fine money</th>
+      <th scope="col">Loan date</th>
+      <th scope="col">Expect return date</th>
+      <th scope="col">To extend loan time</th>
+      <th scope="col">Actual return date</th>
+      <th scope="col">Loan document</th>
+      <th scope="col">Return document</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let info of userloaninf">
+      <td>{{info.loanId}}</td>
+      <td>{{info.bookId}}</td>
+      <td>{{info.bookSubId}}</td>
+      <td>{{info.bookName}}</td>
+      <td>{{info.bookStatus}}</td>
+      <td>{{info.loanStatus}}</td>
+      <td>{{info.fineMoney}}</td>
+      <td>{{info.loanDate | date: "shortDate"}}</td>
+      <td>{{info.expectReturnDate| date: "shortDate"}}</td>
+      <td><button class="btn btn-outline-secondary" (click)="extend(info.loanId)"  style="width: 80px;">Extend </button></td>
+      <td>{{info.actualReturnDate| date: "shortDate"}}</td>
+      <td>{{info.loanDocNo}}</td>
+      <td>{{info.returnDocNo}}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

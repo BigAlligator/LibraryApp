@@ -1,0 +1,25 @@
+<table class="table table-striped mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Book Id</th>
+      <th scope="col">ISBN number</th>
+      <th scope="col">Book Name</th>
+      <th scope="col">Book Genre</th>
+      <th scope="col">Book Sub Genre</th>
+      <th scope="col">Publish Date</th>
+      <th scope="col">Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of booklist">
+      <td>{{b.id}}</td>
+      <td>{{b.isbn}}</td>
+      <td>{{b.bookName}}</td>
+      <td>{{b.mainGenre}}</td>
+      <td>{{b.subGenre}}</td>
+      <td>{{b.publishedDate | date: "mediumDate"}}</td>
+      <td><button class="btn btn-primary" [routerLink]="['/browse/book/', b.id]"><i class="fa fa-eye"></i></button><button class="btn btn-primary ml-2" [routerLink]="['/browse/book/content/', 
+        b.id]"><i class="fa fa-play-circle"></i></button><button class="btn btn-primary ml-2" [routerLink]="['/browse/book/getloannfo/', b.id]"><i class="fa fa-bar-chart"></i></button></td>
+    </tr>
+  </tbody>
+</table>

@@ -7,6 +7,8 @@ import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Author } from '../_models/author';
 import { LoanInfo } from '../_models/loaninfo';
+import { UserLoanInfo } from '../_models/userloaninfo';
+import { BookOfAuthor } from '../_models/bookofauthor';
 
 
 
@@ -85,6 +87,10 @@ getAuthor(id): Observable<Author>{
   return this.http.get<Author>(this.baseUrl + 'book/author/' + id);
 }
 
+getAuthorBookList(id: number): Observable<any> {
+  return this.http.get<UserLoanInfo[]>(this.baseUrl + 'book/authorbooklist/' + id);
+}
+
 borrowBook(id: number, bookId: number){
   return this.http.post(this.baseUrl + 'book/'+ id + '/borrow/' + bookId, {});
 }
@@ -93,12 +99,20 @@ returnBook(id: number, bookId: number){
   return this.http.put(this.baseUrl + 'book/'+ id + '/return/' + bookId, {} );
 }
 
+extendLoanTime(loanId: number){
+  return this.http.put(this.baseUrl + 'book/extend/' + loanId, {} );
+}
+
 contentBook(id: number, bookId: number): Observable<any> {
   return this.http.get<any>(this.baseUrl + 'book/' + id + '/content/' + bookId);
 }
 
 getLoanInfo(id: number, bookId: number): Observable<any> {
   return this.http.get<LoanInfo[]>(this.baseUrl + 'book/' + id + '/getloaninfo/' + bookId);
+}
+
+getUserLoanInfo(id: number, bookId: number): Observable<any> {
+  return this.http.get<UserLoanInfo[]>(this.baseUrl + 'book/' + id + '/getuserloaninfo/' + 1);
 }
 
 }

@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 using System.Data;
 
 
+
 namespace LibraryApp.API.Controllers
 {
     [Authorize]
@@ -87,6 +88,36 @@ namespace LibraryApp.API.Controllers
             return Ok(authorToReturn);
         }
 
+        [HttpGet("authorbooklist/{id}")]
+        public  IEnumerable<Authorbooklist> GetAuthorBookList(int id)
+        {
+            List<Authorbooklist> bookinfo = new List<Authorbooklist>();
+            
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("GetBookByAuthorId", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@AuthorId",id);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    Authorbooklist info = new Authorbooklist();
+                    info.Id = reader["Id"].ToString();
+                    info.Isbn = reader["Isbn"].ToString();
+                    info.BookName = reader["BookName"].ToString();
+                    info.MainGenre = reader["MainGenre"].ToString() ;
+                    info.SubGenre = reader["SubGenre"].ToString();
+                    info.PublishedDate = reader["PublishedDate"].ToString();
+                    bookinfo.Add(info);
+                }
+
+            }
+
+            return bookinfo;
+        }
+
         [HttpPost("{id}/borrow/{bookId}")]
         public async Task<IActionResult> BorrowBook(int id, int bookId)
         {
@@ -96,10 +127,9 @@ namespace LibraryApp.API.Controllers
             var count = await _repo.CountBorrow(id);
 
             if(borrow != null)
-                return BadRequest("You already borrowed this book");
+                return BadRequest("You already bookmarked this book");
 
-            if(count > 3)
-                return BadRequest("You can only loan up to 3 book at the same time");
+            
 
             borrow =  new Borrow
             {
@@ -129,6 +159,33 @@ namespace LibraryApp.API.Controllers
                 return Ok();
             
             return BadRequest("Failed to return this book");
+
+        }
+
+        [HttpPut("extend/{loanId}")]
+        public void  ExtendLoanPeriod(int loanId)
+        {
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("ExtendLoanPeriod", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@LoanId",loanId);
+                conn.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    
+                }
+                catch (System.Exception)
+                {
+                    throw new System.ArgumentException("Failed to extend loan period", "original");
+                    
+                }
+
+            }
+            
+            
 
         }
 
@@ -209,6 +266,50 @@ namespace LibraryApp.API.Controllers
             }
 
             return loaninfo;
+                
+        }
+
+        [HttpGet("{id}/getuserloaninfo/{bookId}")]
+        public  IEnumerable<UserLoanInfo> GetUserLoanInfo(int id, int bookId)
+        {
+                 
+            List<UserLoanInfo> userloaninfo = new List<UserLoanInfo>();
+            
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("UserLoanView", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserId",id);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    UserLoanInfo info = new UserLoanInfo();
+                    info.LoanId = Convert.ToInt32(reader["LoanId"].ToString());
+                    info.BookId = Convert.ToInt32(reader["BookId"].ToString());
+                    info.BookSubId = reader["BookSubId"].ToString();                    
+                    info.BookName = reader["BookName"].ToString();
+                    info.BookStatus = reader["BookStatus"].ToString() ;
+                    if((bool)reader["LoanStatus"] == false)
+                    {
+                            info.LoanStatus = "Returned";
+                    }
+                    else info.LoanStatus = "Loaning";    
+                    info.FineMoney = reader["FineMoney"].ToString();
+                    info.LoanDate = reader["LoanDate"].ToString(); 
+                    info.ExpectReturnDate = reader["ExpectReturnDate"].ToString();
+                    info.ActualReturnDate = reader["ActualReturnDate"].ToString();            
+                    info.LoanDocNo = reader["LoanDocNo"].ToString();
+                    info.ReturnDocNo = reader["ReturnDocNo"].ToString();
+                    userloaninfo.Add(info);
+                    
+                    
+                }
+
+            }
+             
+            return userloaninfo;
                 
         }
     }
