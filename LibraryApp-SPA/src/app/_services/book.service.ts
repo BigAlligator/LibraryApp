@@ -9,6 +9,7 @@ import { Author } from '../_models/author';
 import { LoanInfo } from '../_models/loaninfo';
 import { UserLoanInfo } from '../_models/userloaninfo';
 import { BookOfAuthor } from '../_models/bookofauthor';
+import { UserHoldInfo } from '../_models/userholdinfo';
 
 
 
@@ -95,6 +96,10 @@ borrowBook(id: number, bookId: number){
   return this.http.post(this.baseUrl + 'book/'+ id + '/borrow/' + bookId, {});
 }
 
+holdBook(id: number, bookId: number){
+  return this.http.post(this.baseUrl + 'book/'+ id + '/hold/' + bookId, {});
+}
+
 returnBook(id: number, bookId: number){
   return this.http.put(this.baseUrl + 'book/'+ id + '/return/' + bookId, {} );
 }
@@ -113,6 +118,10 @@ getLoanInfo(id: number, bookId: number): Observable<any> {
 
 getUserLoanInfo(id: number, bookId: number): Observable<any> {
   return this.http.get<UserLoanInfo[]>(this.baseUrl + 'book/' + id + '/getuserloaninfo/' + 1);
+}
+
+getUserHoldInfo(id: number, bookId: number): Observable<any> {
+  return this.http.get<UserHoldInfo[]>(this.baseUrl + 'book/' + id + '/getuserholdinfo/' + 1);
 }
 
 }

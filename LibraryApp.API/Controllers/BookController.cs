@@ -162,6 +162,32 @@ namespace LibraryApp.API.Controllers
 
         }
 
+        [HttpPost("{id}/hold/{bookId}")]
+        public void  HoldBook(int id, int bookId)
+        {
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("AddUserBookHold", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserId",id);
+                cmd.Parameters.AddWithValue("@BookId",bookId);
+                conn.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    
+                }
+                catch (System.Exception)
+                {
+                    throw new System.ArgumentException("Failed to hold this book", "original");
+                    
+                }
+
+            }
+
+        }
+
         [HttpPut("extend/{loanId}")]
         public void  ExtendLoanPeriod(int loanId)
         {
@@ -195,17 +221,17 @@ namespace LibraryApp.API.Controllers
             if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var borrow = await _repo.GetBorrow(id, bookId);
+            //var borrow = await _repo.GetBorrow(id, bookId);
 
-            if((DateTime.Now - borrow.LoanDate).TotalDays > 14)
-            {
-                return BadRequest("Request refused, your loan time is ended");
-            }
+            // if((DateTime.Now - borrow.LoanDate).TotalDays > 14)
+            // {
+            //     return BadRequest("Request refused, your loan time is ended");
+            // }
 
-            if(borrow.ReturnDate != DateTime.MinValue)
-            {
-                return BadRequest("You have returned this book");
-            }
+            // if(borrow.ReturnDate != DateTime.MinValue)
+            // {
+            //     return BadRequest("You have returned this book");
+            // }
             var book = await _repo.GetBook(bookId);
 
             string bookName = book.BookName;
@@ -310,6 +336,39 @@ namespace LibraryApp.API.Controllers
             }
              
             return userloaninfo;
+                
+        }
+
+        [HttpGet("{id}/getuserholdinfo/{bookId}")]
+        public  IEnumerable<UserBookHoldInfo> GetUserHoldInfo(int id, int bookId)
+        {
+                 
+            List<UserBookHoldInfo> userholdinfo = new List<UserBookHoldInfo>();
+            
+            using (SqlConnection conn = new SqlConnection(@"Data Source=SE140003;Initial Catalog=LibraryApp5;Integrated Security=True"))
+            {
+                
+                SqlCommand cmd = new SqlCommand("GetUserBookHoldList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserId",id);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    UserBookHoldInfo info = new UserBookHoldInfo();
+                    info.BookHoldId = reader["BookHoldId"].ToString();
+                    info.SequenceNumber = reader["SequenceNumber"].ToString();
+                    info.BookName = reader["BookName"].ToString();                    
+                    info.BookSubId = reader["BookSubId"].ToString();
+                    info.IssueDate = reader["IssueDate"].ToString() ;                  
+                    userholdinfo.Add(info);
+                    
+                    
+                }
+
+            }
+             
+            return userholdinfo;
                 
         }
     }

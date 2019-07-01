@@ -1,0 +1,27 @@
+<table class="table  table-bordered mt-5 ">
+  <thead>
+    <tr>
+      <th scope="col">Book hold ID</th>
+      <th scope="col">Book name</th>
+      <th scope="col">Book SubID</th>
+      <th scope="col">Your number in row</th>
+      <th scope="col">Issue date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let info of userholdinfos">
+      <td>{{info.bookHoldId}}</td>
+      <td>{{info.bookName}}</td>
+      <td>{{info.bookSubId}}</td>
+      <td>{{info.sequenceNumber}}</td>
+      <td>{{info.issueDate}}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

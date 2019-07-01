@@ -24,7 +24,7 @@ export class User_loaninfoComponent implements OnInit {
 
   extend(loanId: number){
     this.bookService.extendLoanTime(loanId).subscribe(data => {
-      this.alertify.success('You have returned successful');
+      this.alertify.success('You have renewed successful');
     }, error => {
       this.alertify.error('Failed to extend your loan time either because you have returned the book or you have already extend it one');
     });

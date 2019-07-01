@@ -56,7 +56,7 @@ export class Borrow_listComponent implements OnInit {
 
   return(id: number){
     this.bookService.returnBook(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success('You have returned successful');
+      this.alertify.success('You have remove successful');
     }, error => {
       this.alertify.error(error);
     });

@@ -20,6 +20,8 @@ import { User_loaninfoComponent } from './books/user_loaninfo/user_loaninfo.comp
 import { UserLoanInfoResolver } from './_resolvers/user-loaninfo.resolver';
 import { Author_booksComponent } from './books/author_books/author_books.component';
 import { AuthorBookListResolver } from './_resolvers/author-booklist.resolver';
+import { User_holdinfoComponent } from './books/user_holdinfo/user_holdinfo.component';
+import { UserHoldInfoResolver } from './_resolvers/user-holdinfo.resolver';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -33,6 +35,7 @@ export const appRoutes: Routes = [
             {path: 'browse/book/content/:bookId', component: Book_contentComponent, resolve: {book: BookContentResolver}},
             {path: 'browse/book/getloannfo/:bookId', component: BookLoanInfoComponent, resolve: {loaninfo: LoanInfoResolver}},
             {path: 'browse/book/getuserlninfo/:bookId', component: User_loaninfoComponent, resolve: {userloaninfos: UserLoanInfoResolver}},
+            {path: 'browse/book/userholdinfo/:bookId', component: User_holdinfoComponent, resolve: {userholdinfos: UserHoldInfoResolver}},
             {path: 'browse/book/bookofauthor/:id', component: Author_booksComponent, resolve: {booklists: AuthorBookListResolver}}, 
             {path: 'browse/author', component: AuthorComponent, resolve: {authors: AuthorListResolver}},
             {path: 'browse/author/:id', component: AuthorDetailComponent, resolve: {author: AuthorDetailResolver}},         

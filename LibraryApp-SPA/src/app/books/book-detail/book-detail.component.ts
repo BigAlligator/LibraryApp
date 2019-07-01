@@ -24,9 +24,17 @@ export class BookDetailComponent implements OnInit {
 
   borrow(id: number){
     this.bookService.borrowBook(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.alertify.success(this.book.bookName + ' added to book list');
+      this.alertify.success(this.book.bookName + ' added to your bookmark list');
     }, error => {
       this.alertify.error(error);
+    });
+  }
+
+  hold(id: number){
+    this.bookService.holdBook(this.authService.decodedToken.nameid, id).subscribe(data => {
+      this.alertify.success(this.book.bookName + ' added to your hold list please check it');
+    }, error => {
+      this.alertify.error('Failed to hold this book either because you already loan it or hold it');
     });
   }
 
